@@ -1,0 +1,17 @@
+[
+    {
+        "id":1,
+        "name":"Lelouch",
+        "email":"lelouch@britania.com"
+    },
+    {
+        "id":2,
+        "name":"Kaido",
+        "email":"kaido@beast.com"
+    },
+    {
+        "id":3,
+        "name":"Jack",
+        "email":"jack@beast.com"
+    }
+]
