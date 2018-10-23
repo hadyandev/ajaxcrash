@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AJAXCRASH</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">AJAXCRASH</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            </ul>
+        </div>
+    </nav>
+    <br><br>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+            <li class="tab col s2"><a class="active" href="#tab1">Ajax 1</a></li>
+            <li class="tab col s2"><a href="#tab2">Ajax 2</a></li>
+            <li class="tab col s2"><a href="#tab3">Ajax 3</a></li>
+            <li class="tab col s2"><a href="#tab4">Ajax 4</a></li>
+            <li class="tab col s2"><a href="#tab5">Ajax 5</a></li>
+            </ul>
+        </div>
+        <div id="tab1" class="col s12">
+            <div class="container">
+                <h4>Ajax 1 - Get Text File</h4>
+                <br>
+                <a class="waves-effect waves-light btn" id="button"><i class="material-icons left">note</i>Load Text</a>
+                <br><br>
+                
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">This the text:</span>
+                            <p><div id="text"></div></p>
+                        </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tab2" class="col s12">
+            <div class="container">
+                <h4>Ajax 2 - Local JSON</h4>
+                <br>
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">person</i>First</div>
+                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">users</i>Second</div>
+                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="tab3" class="col s12">
+            <div class="container">
+                <h4>Ajax 3 - External API</h4>
+                <br>
+            </div>
+        </div>
+        <div id="tab4" class="col s12">
+            <div class="container">
+                <h4>Ajax 4 - AJAX & PHP Forms</h4>
+                <br>
+            </div>
+        </div>
+        <div id="tab5" class="col s12">
+            <div class="container">
+                <h4>Ajax 5 - Fetch from PHP MySQL</h4>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // create event listener
+        document.getElementById('button').addEventListener('click', loadText);
+        function loadText(){
+            // create XHR Object
+            var xhr = new XMLHttpRequest();
+
+            // OPTIONAL - used for loaders
+            xhr.onprogress = function(){
+                console.log('READYSTATE: '+xhr.readyState);
+            }
+
+            // OPEN - type, url/file, async
+            console.log(xhr);
+            xhr.open('GET', 'sample.txt', true);    // gak ngecek readyState
+            console.log('READYSTATE: '+xhr.readyState);
+
+            
+            xhr.onload = function(){
+                console.log('READYSTATE: '+xhr.readyState);
+                if(this.status == 200){
+                    //console.log(this.responseText);
+                    document.getElementById('text').innerHTML = this.responseText;
+                }else if(this.status ==404){
+                    document.getElementById('text').innerHTML = 'Not Found';
+                }
+            }
+            
+            xhr.onerror = function(){
+                console.log('Request error...');
+            }
+
+            /*
+            xhr.onreadystatechange = function(){
+                console.log('READYSTATE: '+xhr.readyState);
+                if(this.readyState == 4 && this.status == 200){
+                    //console.log(this.responseText);
+                }
+            }
+            */
+
+            // Sends Request
+            xhr.send();
+        }
+
+        /*
+            ReadyState Values
+            0   : request not initialized
+            1   : server connection established
+            2   : request received
+            3   : processing request
+            4   : request finished and response is ready
+
+
+            HTTP Statuses
+            200 : "OK"
+            403 : "Forbidden"
+            404 : "Not Found"
+        */
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.collapsible');
+        var el = document.querySelectorAll('.tabs');
+        var instances = M.Collapsible.init(elems, {
+            accordion: true
+        });
+        var instance = M.Tabs.init(el, {
+            swipeable:true
+        });
+    });
+    </script>
+</body>
+</html>
